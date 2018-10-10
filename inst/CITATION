@@ -1,0 +1,9 @@
+utils::citEntry(
+  "manual"
+  , "Wiedemann, M. (2018). psychdata: An R package for common data manipulation of psychological datasets. R package version 0.0.0.9001, retrieved from https://github.com/milanwiedemann/psychdata"
+  , author = c("Milan Wiedemann")
+  , title = "{psychdata}: {An} {R} package for common data manipulation of psychological dataset"
+  , year = "2018"
+  , note = "R package version 0.0.0.9001"
+  , url = "https://github.com/milanwiedemann/psychdata"
+)

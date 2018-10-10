@@ -1,0 +1,18 @@
+Package: psychdata
+Type: Package
+Title: psychdata: An R package for common data manipulation of psychological datasets
+Date: 2018-09-28
+Version: 0.0.0.9001
+Authors@R: person("Milan", "Wiedemann", email = "milan.wiedemann@gmail.com", role = c("aut", "cre"))
+Description: More about what it does (maybe more than one line)
+License: GPL-3
+Encoding: UTF-8
+URL: https://github.com/milanwiedemann/psychdata
+BugReports: https://github.com/milanwiedemann/psychdata/issues
+LazyData: true
+Imports:
+    dplyr (>= 0.7.4),
+    tibble (>= 1.4.2),
+    magrittr (>= 1.5),
+    rlang (>= 0.1.6),
+RoxygenNote: 6.1.0
