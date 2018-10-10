@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-rename_a2_item_vars <- function(data, id_str, measure, session, new_str_measure = measure){
+rename_item_vars <- function(data, id_str, measure, session, new_str_measure = measure){
 
   # this part is for all weekly measures that are numeric
   if (is.numeric(session) == TRUE) {
