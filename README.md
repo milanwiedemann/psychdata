@@ -1,5 +1,5 @@
 # psychdata
-psychdata: A personal R package with functions for data checking, manipulation, visualisation, ...
+psychdata: A personal R package for common data manipulation of psychological datasets
 
 ## Installation
 
