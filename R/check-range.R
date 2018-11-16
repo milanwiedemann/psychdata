@@ -8,10 +8,8 @@
 #' @param range_min Number of minimum possible value of scale.
 #' @param range_max Number of maximum possible value of scale.
 #'
-#' @return Dataframe
 #' @export
 #'
-#' @examples
 check_item_range <- function(data, id_str, var_str, session_str, range_min, range_max){
 
   # Do some sort of if else stuff in case id is character
@@ -22,7 +20,6 @@ check_item_range <- function(data, id_str, var_str, session_str, range_min, rang
   data_range_min <- data %>%
     select(id_str, contains(var_str)) %>%
     select(id_str, contains(session_str)) %>%
-    # mutate(!!id_str := !!rlang::sym(id_str) - max_id) %>%
     filter_all(., any_vars(. < range_min))
 
 
@@ -30,9 +27,9 @@ check_item_range <- function(data, id_str, var_str, session_str, range_min, rang
     select(id_str, contains(var_str)) %>%
     select(id_str, contains(session_str)) %>%
     mutate(!!id_str := !!rlang::sym(id_str) - max_id) %>%
-    filter_all(., any_vars(. > range_to)) %>%
+    filter_all(., any_vars(. > range_max)) %>%
     mutate(!!id_str := !!rlang::sym(id_str) + max_id)
 
-  data_range_from %>% dplyr::full_join(range_max)
+  data_range_min %>% dplyr::full_join(data_range_max, by = "id")
 
   }
