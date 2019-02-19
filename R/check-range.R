@@ -18,18 +18,41 @@ check_item_range <- function(data, id_str, var_str, session_str, range_min, rang
   max_id <- max(data$id)
 
   data_range_min <- data %>%
-    select(id_str, contains(var_str)) %>%
-    select(id_str, contains(session_str)) %>%
-    filter_all(., any_vars(. < range_min))
-
+    dplyr::select(id_str, contains(var_str)) %>%
+    dplyr::select(id_str, contains(session_str)) %>%
+    dplyr::filter_all(., any_vars(. < range_min)) %>%
+    dplyr::mutate(!!id_str := as.numeric(!!rlang::sym(id_str)))
 
   data_range_max <- data %>%
-    select(id_str, contains(var_str)) %>%
-    select(id_str, contains(session_str)) %>%
-    mutate(!!id_str := !!rlang::sym(id_str) - max_id) %>%
-    filter_all(., any_vars(. > range_max)) %>%
-    mutate(!!id_str := !!rlang::sym(id_str) + max_id)
+    dplyr::select(id_str, contains(var_str)) %>%
+    dplyr::select(id_str, contains(session_str)) %>%
+    dplyr::mutate(!!id_str := !!rlang::sym(id_str) - max_id) %>%
+    dplyr::filter_all(., any_vars(. > range_max)) %>%
+    dplyr::mutate(!!id_str := !!rlang::sym(id_str) + max_id) %>%
+    dplyr::mutate(!!id_str := as.numeric(!!rlang::sym(id_str)))
 
-  data_range_min %>% dplyr::full_join(data_range_max, by = "id")
+  if (base::nrow(data_range_min) == 0 && base::nrow(data_range_max) == 0) {
+
+    base::message("Wooop woooooop, all variables are within the specified range :)\nI'm awarding one data entry point to whoever entered this data!")
+
+  } else if (base::nrow(data_range_min) == 0) {
+
+    base::message("Ahh ahh, at least one value is larger than the value specified in 'range_max'.\nGo back to the paper copies of the questionnaire and sort this out! NOW!")
+    data_range_max
+
+  }  else if (base::nrow(data_range_max) == 0) {
+
+    base::message("Ahh ahh, at least one value is smaller than the value specified in 'range_min'.\nGo back to the paper copies of the questionnaire and sort this out! NOW!")
+    data_range_min
+
+  } else if (base::nrow(data_range_min) > 0 && base::nrow(data_range_max) > 0) {
+
+    base::message("Uhhh uhhhh uhhh! This does NOT look good!\nSome values are smaller than the value specified in 'range_min', some values are larger than the value specified in 'range_max', ohh maaaaaaan!\nSeriously, this needs some attention, get a coffee and go back to the paper copies of the questionnaire and sort this out! NOW!")
+
+    data_range_min_max <- base::rbind(data_range_min, data_range_max)
+
+    unique(data_range_min_max)
+
+  }
 
   }

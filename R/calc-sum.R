@@ -38,8 +38,10 @@ calc_sum <- function(data, id_str, var_str, session_str, n_min, item_scores = FA
       base::names()
     item_count <- base::length(var_names)
 
-    # Create variable name for sum
-    var_str_i <- base::paste(var_str, "sum", session_str[i], sep = sep)
+    session_str_var_name <- str_extract(session_str[i], "\\d+")
+
+    # Create variable name for mean
+    var_str_i <- base::paste0(var_str, sep, "sum", sep, "s", session_str_var_name)
 
     # Calculate sum
     data_select_var_ses_sum <- data_select_var_ses %>%

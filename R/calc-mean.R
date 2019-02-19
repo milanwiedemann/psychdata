@@ -10,7 +10,7 @@
 #' @param sort_mean_item Logical, if TRUE and multiple sessions then output dataframe will be organised mean_timepoint followed by all items for that timepoint, if FALSE all means will come after id variable followed by all items.
 #' @export
 #'
-calc_mean <- function(data, id_str, var_str, session_str, n_min, item_scores = FALSE, sort_mean_item = TRUE, sep = "_"){
+calc_mean <- function(data, id_str, var_str, session_str, n_min, item_scores = FALSE, short_var_name = TRUE, timepoint_str = "s" , sep = "_"){
 
   session_str <- base::c(session_str)
 
@@ -38,8 +38,27 @@ calc_mean <- function(data, id_str, var_str, session_str, n_min, item_scores = F
       base::names()
     item_count <- base::length(var_names)
 
+    # Extract session number or str from session_str
+    # If no digit, take the letters, if there is a digit, take digit
+    if (base::is.na(stringr::str_extract(session_str[i], "\\d+")) == TRUE) {
+
+      session_str_var_name <- stringr::str_extract(session_str[i], "[:alpha:]+")
+
+    } else if (base::is.na(stringr::str_extract(session_str[i], "\\d+")) == FALSE) {
+
+      session_str_var_name <- stringr::str_extract(session_str[i], "\\d+")
+      session_str_var_name <- base::paste0(timepoint_str, session_str_var_name)
+
+    }
+
     # Create variable name for mean
-    var_str_i <- base::paste(var_str, "mean", session_str[i], sep = sep)
+
+    if (short_var_name == FALSE) {
+      var_str_i <- base::paste0(var_str, sep, "mean", sep, session_str_var_name)
+    } else if (short_var_name == TRUE) {
+      var_str_i <- base::paste0(var_str, sep, session_str_var_name)
+    }
+
 
     # # Calvulate number of available scores
     # data_select_var_ses_mean <- data_select_var_ses %>%
@@ -67,11 +86,6 @@ calc_mean <- function(data, id_str, var_str, session_str, n_min, item_scores = F
   }
 
 
-  # Sort everything at the end
-  if (sort_mean_item == TRUE) {
     data_join_start_end
-  } else {
-    dplyr::select(data_join_start_end, id_str, dplyr::contains("mean"), dplyr::everything())
-  }
 
-}
+  }
