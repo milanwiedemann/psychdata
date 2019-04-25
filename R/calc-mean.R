@@ -85,7 +85,6 @@ calc_mean <- function(data, id_str, var_str, session_str, n_min, item_scores = F
 
   }
 
-
-    data_join_start_end
+    return(data_join_start_end)
 
   }
