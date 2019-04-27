@@ -16,4 +16,5 @@ Imports:
     tibble (>= 1.4.2),
     magrittr (>= 1.5),
     rlang (>= 0.1.6),
+    purrr
 RoxygenNote: 6.1.1

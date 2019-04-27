@@ -4,7 +4,7 @@
 #' psychdata.
 #'
 #' @format A data frame with 500 cases, 2 groups, 16 measurements of variable y:
-#' \describe{
+#' \itemize{
 #'   \item{group}{group}
 #'   \item{id}{id}
 #'   \item{y_s0}{y initial assessment}

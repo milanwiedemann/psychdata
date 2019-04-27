@@ -5,7 +5,7 @@
 \title{Calculate sum of variables}
 \usage{
 calc_sum(data, id_str, var_str, session_str, n_min, item_scores = FALSE,
-  sort_sum_item = TRUE, sep = "_")
+  short_var_name = TRUE, timepoint_str = "s", sep = "_")
 }
 \arguments{
 \item{data}{Wide dataframe.}
@@ -20,9 +20,9 @@ calc_sum(data, id_str, var_str, session_str, n_min, item_scores = FALSE,
 
 \item{item_scores}{Add item scores after sum.}
 
-\item{sort_sum_item}{Logical, if TRUE and multiple sessions then output dataframe will be organised sum_timepoint followed by all items for that timepoint, if FALSE all sums will come after id variable followed by all items.}
-
 \item{sep}{seperator for variable names.}
+
+\item{sort_sum_item}{Logical, if TRUE and multiple sessions then output dataframe will be organised sum_timepoint followed by all items for that timepoint, if FALSE all sums will come after id variable followed by all items.}
 }
 \description{
 Calculate sum addressing item-level missing data using proration
