@@ -10,3 +10,8 @@ install.packages("devtools")
 ```r
 devtools::install_github(repo = "milanwiedemann/psychdata")
 ```
+
+## List of cool functions from other packages 
+
+- `dplyr::rename_all(tolower)` to make all variable names lower case
+- `paletteer::paletteer_c("viridis::viridis", 7)` I love viridis
